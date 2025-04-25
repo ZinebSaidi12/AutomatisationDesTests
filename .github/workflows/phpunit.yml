@@ -1,4 +1,5 @@
 name: PHPUnit Tests
+
 on:
   push:
     branches: [main]
@@ -8,6 +9,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        options: --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=test_db --health-cmd="mysqladmin ping --silent"
+        ports:
+          - 3306:3306
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -15,11 +24,22 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.2"
+          php-version: "8.1"
           extensions: mbstring, intl, bcmath, pdo, mysqli
 
       - name: Install Composer dependencies
         run: composer install --no-interaction
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping --host=127.0.0.1 --port=3306 --user=root --password=root --silent; then
+              echo "MySQL is ready"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
 
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --coverage-text
