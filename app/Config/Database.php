@@ -164,7 +164,7 @@ class Database extends Config
      */
     public array $tests = [
         'DSN'         => '',
-        'hostname'    => 'localhost',
+        'hostname'    => '127.0.0.1',
         'username'    => 'root',
         'password'    => 'root',
         'database'    => 'db_test',
@@ -179,7 +179,7 @@ class Database extends Config
         'compress'    => false,
         'strictOn'    => false,
         'failover'    => [],
-        'port'        => 3307,
+        'port'        => 3306,
         'foreignKeys' => true,
         'busyTimeout' => 1000,
         'dateFormat'  => [
