@@ -41,5 +41,9 @@ jobs:
             sleep 2
           done
 
+      - name: Créer la base db_test
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "CREATE DATABASE IF NOT EXISTS db_test;"
+
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --coverage-text
