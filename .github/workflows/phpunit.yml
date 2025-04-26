@@ -45,5 +45,8 @@ jobs:
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root -proot -e "CREATE DATABASE IF NOT EXISTS db_test;"
 
+      - name: Run Migrations
+        run: php spark migrate --all --quiet
+
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --coverage-text
