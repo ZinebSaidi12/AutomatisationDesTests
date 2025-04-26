@@ -13,7 +13,7 @@ jobs:
     services:
       mysql:
         image: mysql:5.7
-        options: --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=test_db --health-cmd="mysqladmin ping --silent"
+        options: --env MYSQL_ROOT_PASSWORD=root --env MYSQL_DATABASE=db_test --health-cmd="mysqladmin ping --silent" --health-timeout=5s --health-retries=3
         ports:
           - 3306:3306
 
@@ -41,12 +41,13 @@ jobs:
             sleep 2
           done
 
-      - name: Créer la base db_test
+      - name: Create the test database
         run: |
           mysql -h 127.0.0.1 -P 3306 -u root -proot -e "CREATE DATABASE IF NOT EXISTS db_test;"
 
       - name: Run Migrations
-        run: php spark migrate --all --quiet
+        run: |
+          php spark migrate --env=test --quiet
 
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --coverage-text
