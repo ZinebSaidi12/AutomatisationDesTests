@@ -24,6 +24,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+-- Create LigneBonLivraison table
+CREATE TABLE LigneBonLivraison (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    libelle VARCHAR(255) NOT NULL,
+    qte INT NOT NULL
+);
+
 -- Insert minimal test data if needed
 INSERT INTO `articles` (`ref`, `libelle`, `qte_stock`) VALUES
 ('TEST001', 'Test Article 1', 10),
