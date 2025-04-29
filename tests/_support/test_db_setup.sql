@@ -25,12 +25,14 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Create BonLivraison table
-CREATE TABLE `BonLivraison` (
-  `id` int(11) NOT NULL,
-  `numero_bl` varchar(50) NOT NULL,
-  `date_bl` date NOT NULL,
-  `client_id` int(11) NOT NULL
+CREATE TABLE 'BonLivraison' (
+  'id' int(11) NOT NULL AUTO_INCREMENT,
+  'numero_bl' varchar(50) NOT NULL,
+  'date_bl' date NOT NULL,
+  'client_id' int(11) NOT NULL,
+  PRIMARY KEY ('id')
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO Client (id, nom) VALUES (1, 'Client Test');
 
 -- Create LigneBonLivraison table
 CREATE TABLE LigneBonLivraison (
